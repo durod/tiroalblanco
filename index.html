@@ -4,14 +4,11 @@
   <title>Juego de velocidad y precisión</title>
   <style>
     body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
       text-align: center;
     }
 
     #game-container {
+      margin-top: 50px;
       position: relative;
       width: 500px;
       height: 300px;
@@ -53,24 +50,17 @@
     var score = 0;
     var timer = 60;
     var interval;
-    var gameContainer = document.getElementById("game-container");
 
     document.querySelector("button").addEventListener("click", startGame);
 
     function startGame() {
-      score = 0;
-      timer = 60;
-      document.getElementById("score").textContent = score;
-      document.getElementById("timer").textContent = timer;
-
-      gameContainer.innerHTML = "";
-      clearInterval(interval);
-
       interval = setInterval(updateTimer, 1000);
       createTarget();
     }
 
     function createTarget() {
+      var gameContainer = document.getElementById("game-container");
+
       var target = document.createElement("div");
       target.classList.add("target");
 
