@@ -50,16 +50,16 @@
     var score = 0;
     var timer = 60;
     var interval;
-
-    document.querySelector("button").addEventListener("click", startGame);
+    var gameContainer = document.getElementById("game-container");
+    var scoreElement = document.getElementById("score");
+    var timerElement = document.getElementById("timer");
 
     function startGame() {
       score = 0;
       timer = 60;
-      document.getElementById("score").textContent = score;
-      document.getElementById("timer").textContent = timer;
+      scoreElement.textContent = score;
+      timerElement.textContent = timer;
 
-      var gameContainer = document.getElementById("game-container");
       gameContainer.innerHTML = "";
 
       interval = setInterval(updateTimer, 1000);
@@ -67,8 +67,6 @@
     }
 
     function createTarget() {
-      var gameContainer = document.getElementById("game-container");
-
       var target = document.createElement("div");
       target.classList.add("target");
 
@@ -81,7 +79,7 @@
 
       target.addEventListener("click", function() {
         score++;
-        document.getElementById("score").textContent = score;
+        scoreElement.textContent = score;
         gameContainer.removeChild(target);
         createTarget();
       });
@@ -95,7 +93,7 @@
 
     function updateTimer() {
       timer--;
-      document.getElementById("timer").textContent = timer;
+      timerElement.textContent = timer;
 
       if (timer === 0) {
         clearInterval(interval);
@@ -108,7 +106,7 @@
     }
   </script>
 
-  <button>Comenzar juego</button>
+  <button onclick="startGame()">Comenzar juego</button>
 </body>
 </html>
 
