@@ -54,6 +54,14 @@
     document.querySelector("button").addEventListener("click", startGame);
 
     function startGame() {
+      score = 0;
+      timer = 60;
+      document.getElementById("score").textContent = score;
+      document.getElementById("timer").textContent = timer;
+
+      var gameContainer = document.getElementById("game-container");
+      gameContainer.innerHTML = "";
+
       interval = setInterval(updateTimer, 1000);
       createTarget();
     }
@@ -103,3 +111,4 @@
   <button>Comenzar juego</button>
 </body>
 </html>
+
