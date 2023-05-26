@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Juego de velocidad y precisión</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+    }
+
+    #game-container {
+      position: relative;
+      width: 500px;
+      height: 300px;
+      border: 2px solid black;
+      background-color: #E5E5E5;
+      border-radius: 10px;
+    }
+
+    .target {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      background-color: #FFFFFF;
+      border: 2px solid #000000;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .target-inner {
+      position: relative;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 70%;
+      height: 70%;
+      background-color: #FF0000;
+      border-radius: 50%;
+    }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <h1>Juego de velocidad y precisión</h1>
+  <div id="game-container">
+  </div>
+  <p>Aciertos: <span id="score">0</span></p>
+  <p>Tiempo restante: <span id="timer">60</span> segundos</p>
+
+  <script>
+    var score = 0;
+    var timer = 60;
+    var interval;
+
+    $(document).ready(function() {
+      $("button").click(function() {
+        startGame();
+      });
+    });
+
+    function startGame() {
+      interval = setInterval(updateTimer, 1000);
+      createTarget();
+    }
+
+    function createTarget() {
+      var gameContainer = $("#game-container");
+
+      var target = $("<div></div>").addClass("target");
+
+      var targetInner = $("<div></div>").addClass("target-inner");
+      target.append(targetInner);
+
+      target.css("top", getRandomPosition(20, 240) + "px");
+      target.css("left", getRandomPosition(20, 440) + "px");
+
+      target.click(function() {
+        score++;
+        $("#score").text(score);
+        gameContainer.remove(target);
+        createTarget();
+      });
+
+      gameContainer.append(target);
+    }
+
+    function getRandomPosition(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function updateTimer() {
+      timer--;
+      $("#timer").text(timer);
+
+      if (timer === 0) {
+        clearInterval(interval);
+        endGame();
+      }
+    }
+
+    function endGame() {
+      alert("¡Tiempo agot
