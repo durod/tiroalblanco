@@ -53,6 +53,7 @@
     var score = 0;
     var timer = 60;
     var interval;
+    var gameContainer = document.getElementById("game-container");
 
     document.querySelector("button").addEventListener("click", startGame);
 
@@ -62,16 +63,14 @@
       document.getElementById("score").textContent = score;
       document.getElementById("timer").textContent = timer;
 
-      var gameContainer = document.getElementById("game-container");
       gameContainer.innerHTML = "";
+      clearInterval(interval);
 
       interval = setInterval(updateTimer, 1000);
       createTarget();
     }
 
     function createTarget() {
-      var gameContainer = document.getElementById("game-container");
-
       var target = document.createElement("div");
       target.classList.add("target");
 
