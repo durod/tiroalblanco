@@ -41,7 +41,6 @@
       border-radius: 50%;
     }
   </style>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
   <h1>Juego de velocidad y precisión</h1>
@@ -55,11 +54,7 @@
     var timer = 60;
     var interval;
 
-    $(document).ready(function() {
-      $("button").click(function() {
-        startGame();
-      });
-    });
+    document.querySelector("button").addEventListener("click", startGame);
 
     function startGame() {
       interval = setInterval(updateTimer, 1000);
@@ -67,24 +62,26 @@
     }
 
     function createTarget() {
-      var gameContainer = $("#game-container");
+      var gameContainer = document.getElementById("game-container");
 
-      var target = $("<div></div>").addClass("target");
+      var target = document.createElement("div");
+      target.classList.add("target");
 
-      var targetInner = $("<div></div>").addClass("target-inner");
-      target.append(targetInner);
+      var targetInner = document.createElement("div");
+      targetInner.classList.add("target-inner");
+      target.appendChild(targetInner);
 
-      target.css("top", getRandomPosition(20, 240) + "px");
-      target.css("left", getRandomPosition(20, 440) + "px");
+      target.style.top = getRandomPosition(20, 240) + "px";
+      target.style.left = getRandomPosition(20, 440) + "px";
 
-      target.click(function() {
+      target.addEventListener("click", function() {
         score++;
-        $("#score").text(score);
-        gameContainer.remove(target);
+        document.getElementById("score").textContent = score;
+        gameContainer.removeChild(target);
         createTarget();
       });
 
-      gameContainer.append(target);
+      gameContainer.appendChild(target);
     }
 
     function getRandomPosition(min, max) {
@@ -93,7 +90,7 @@
 
     function updateTimer() {
       timer--;
-      $("#timer").text(timer);
+      document.getElementById("timer").textContent = timer;
 
       if (timer === 0) {
         clearInterval(interval);
@@ -102,4 +99,10 @@
     }
 
     function endGame() {
-      alert("¡Tiempo agot
+      alert("¡Tiempo agotado! Tu puntuación final es: " + score);
+    }
+  </script>
+
+  <button>Comenzar juego</button>
+</body>
+</html>
